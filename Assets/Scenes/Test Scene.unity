@@ -1554,7 +1554,7 @@ CanvasGroup:
   m_Enabled: 1
   m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 0
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &984823257
 MonoBehaviour:
@@ -5488,7 +5488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1544650614943988254}
-  _deathScreen: {fileID: 984823256}
+  _deathScreen: {fileID: 984823254}
 --- !u!4 &1750873685
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public static float Energy { get; private set; }
     public static bool OutOfEnergy { get; private set; }
     private bool isDead;
-    [SerializeField] private CanvasGroup _deathScreen;
+    [SerializeField] private GameObject _deathScreen;
 
     private void Start()
     {
@@ -44,31 +44,39 @@ public class GameManager : MonoBehaviour
     #region Death
     public delegate void RespawnAction();
     public static event RespawnAction OnRespawn;
+    private bool _dead;
+    private float _invincibleTime;
 
     public void TriggerDeath() {
-
-        StartCoroutine(FadeInDeathScreen());
+        if (_dead == false || Time.time < _invincibleTime) {
+            _dead = true;
+            StartCoroutine(FadeInDeathScreen());
+        }
     }
 
         private IEnumerator FadeInDeathScreen()
     {
-        float startAlpha = _deathScreen.alpha;
+        var _deathScreenCanvasGroup = _deathScreen.GetComponent<CanvasGroup>();
+        _deathScreenCanvasGroup.alpha = 0;
+        _deathScreen.SetActive(true);
+
+        float startAlpha = _deathScreenCanvasGroup.alpha;
         float elapsed = 0f;
 
         while (elapsed < 1)
         {
             elapsed += Time.deltaTime;
-            _deathScreen.alpha = Mathf.Lerp(startAlpha, 1, elapsed / 1);
+            _deathScreenCanvasGroup.alpha = Mathf.Lerp(startAlpha, 1, elapsed / 1);
             yield return null;
         }
-        _deathScreen.alpha = 1; 
-        _deathScreen.blocksRaycasts = true;
+        _deathScreenCanvasGroup.alpha = 1; 
     }
 
     public void Respawn() {
         StopCoroutine("FadeInDeathScreen");
-        _deathScreen.alpha = 0;
-        _deathScreen.blocksRaycasts = false;
+        _deathScreen.SetActive(false);
+        _dead = false;
+        _invincibleTime = Time.time + 3;
         OnRespawn?.Invoke();
     }
 
