@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     #region External
 
+    public event Action<int> StateChanged;
     public event Action<bool, float> GroundedChanged;
     public event Action<bool, Vector2> DashingChanged;
     public event Action<bool> WallGrabChanged;
@@ -91,11 +92,29 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private void GatherInput() {
         FrameInput = _input.FrameInput;
-        if (FrameInput.HumanDown) state = "human";
-        else if (FrameInput.MonkeyDown) state = "monkey";
-        else if (FrameInput.CamelionDown) state = "camelion";
-        else if (FrameInput.PenguinDown) state = "penguin";
-        else if (FrameInput.EagleDown) state = "eagle";
+        if (FrameInput.HumanDown)
+        {
+            state = "human";
+            StateChanged?.Invoke(0);
+        }
+        else if (FrameInput.MonkeyDown)
+        {
+            state = "monkey";
+            StateChanged?.Invoke(1);
+        }
+        else if (FrameInput.CamelionDown)
+        {
+            state = "camelion";
+        }
+        else if (FrameInput.PenguinDown)
+        {
+            state = "penguin";
+            StateChanged?.Invoke(2);
+        }
+        else if (FrameInput.EagleDown) {
+            state = "eagle";
+            StateChanged?.Invoke(3);
+        }
 
         if (state == "human" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) Sprinting = true;
         else Sprinting = false;
@@ -141,8 +160,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         HandleHorizontal();
         HandleVertical();
         ApplyMovement();
-
-        print(_wallHitCount);
     }
 
     #region Collisions
@@ -593,8 +610,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 }
 
 public interface IPlayerController {
+    public event Action<int> StateChanged; 
     public event Action<bool, float> GroundedChanged; // On the Ground - Impact Speed
-
     public event Action<bool, Vector2> DashingChanged; // Dashing - Dir
     public event Action<bool> WallGrabChanged;
     public event Action<bool> Jumped; // Is wall jump

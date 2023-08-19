@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerAnimation : MonoBehaviour {
     [Header("References")]
@@ -6,7 +7,6 @@ public class PlayerAnimation : MonoBehaviour {
     [SerializeField] private SpriteRenderer _sprite;
 
     [Header("Settings")]
-    [SerializeField, Range(1f, 3f)] private float _maxIdleSpeed = 2;
     [SerializeField] private Vector2 _crouchScaleModifier = new(1, 0.5f);
     [SerializeField] private float _maxTilt = 5; // In degrees around the Z axis
     [SerializeField] private float _tiltSpeed = 20;
@@ -41,6 +41,7 @@ public class PlayerAnimation : MonoBehaviour {
         _player.Jumped += OnJumped;
         _player.GroundedChanged += OnGroundedChanged;
         _player.DashingChanged += OnDashChanged;
+        _player.StateChanged += OnStateChange;
 
         _moveParticles.Play();
     }
@@ -49,20 +50,25 @@ public class PlayerAnimation : MonoBehaviour {
         _player.Jumped -= OnJumped;
         _player.GroundedChanged -= OnGroundedChanged;
         _player.DashingChanged -= OnDashChanged;
+        _player.StateChanged -= OnStateChange;
 
         _moveParticles.Stop();
+    }
+
+    private void OnStateChange(int state) {
+        _anim.SetInteger("State", state);
     }
 
     private void Update() {
         if (_player == null) return;
 
         var xInput = _player.Input.x;
+
+        HandleSpeed();
         
         DetectGroundColor();
 
         HandleSpriteFlip(xInput);
-
-        HandleIdleSpeed(xInput);
 
         HandleCharacterTilt(xInput);
 
@@ -71,19 +77,15 @@ public class PlayerAnimation : MonoBehaviour {
         HandleGrappling();
     }
 
+    private void HandleSpeed() {
+        _anim.SetFloat("Speed", Math.Abs(_player.Speed.x));
+    }
+
     // Face the direction of your last input
     private void HandleSpriteFlip(float xInput) {
         if (_player.Input.x != 0) _sprite.flipX = xInput < 0; // _player.Input.x > 0 ? 1 : -1, 1, 1);
     }
 
-    // Speed up idle while running
-    private void HandleIdleSpeed(float xInput) {
-        var inputStrength = Mathf.Abs(xInput);
-        _anim.SetFloat(IdleSpeedKey, Mathf.Lerp(1, _maxIdleSpeed, inputStrength));
-        _moveParticles.transform.localScale = Vector3.MoveTowards(_moveParticles.transform.localScale,
-            Vector3.one * inputStrength, 2 * Time.deltaTime);
-    }
-  
     private void HandleCharacterTilt(float xInput) {
         var runningTilt = _grounded ? Quaternion.Euler(0, 0, _maxTilt * xInput) : Quaternion.identity;
         var targetRot = _grounded && _player.GroundNormal != Vector2.up ? runningTilt * _player.GroundNormal : runningTilt * Vector2.up;
@@ -95,7 +97,7 @@ public class PlayerAnimation : MonoBehaviour {
     private void HandleCrouching() {
         if (!_crouching && _player.Crouching) {
             _sprite.size = _defaultSpriteSize * _crouchScaleModifier;
-            _source.PlayOneShot(_slideClips[Random.Range(0, _slideClips.Length)], Mathf.InverseLerp(0, 5, Mathf.Abs(_player.Speed.x)));
+            _source.PlayOneShot(_slideClips[UnityEngine.Random.Range(0, _slideClips.Length)], Mathf.InverseLerp(0, 5, Mathf.Abs(_player.Speed.x)));
             _crouching = true;
         }
         else if (_crouching && !_player.Crouching && _crouching) {
@@ -122,8 +124,8 @@ public class PlayerAnimation : MonoBehaviour {
     #region Event Callbacks
 
     private void OnJumped(bool wallJumped) {
-        _anim.SetTrigger(JumpKey);
-        _anim.ResetTrigger(GroundedKey);
+        _anim.SetTrigger("Jumping");
+        _anim.ResetTrigger("Grounded");
 
         // Only play particles when grounded (avoid coyote)
         if (_grounded) {
@@ -137,8 +139,8 @@ public class PlayerAnimation : MonoBehaviour {
     private void OnGroundedChanged(bool grounded, float impact) {
         _grounded = grounded;
         if (grounded) {
-            _anim.SetTrigger(GroundedKey);
-            _source.PlayOneShot(_footsteps[Random.Range(0, _footsteps.Length)]);
+            _anim.SetTrigger("Grounded");
+            _source.PlayOneShot(_footsteps[UnityEngine.Random.Range(0, _footsteps.Length)]);
             _moveParticles.Play();
 
             _landParticles.transform.localScale = Vector3.one * Mathf.InverseLerp(0, 40, impact);
@@ -183,14 +185,6 @@ public class PlayerAnimation : MonoBehaviour {
         var main = ps.main;
         main.startColor = _currentGradient;
     }
-
-    #endregion
-
-    #region Animation Keys
-
-    private static readonly int GroundedKey = Animator.StringToHash("Grounded");
-    private static readonly int IdleSpeedKey = Animator.StringToHash("IdleSpeed");
-    private static readonly int JumpKey = Animator.StringToHash("Jump");
 
     #endregion
 }
