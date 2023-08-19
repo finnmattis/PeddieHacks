@@ -8,10 +8,11 @@ using TMPro;
 /// </summary>
 public class PlayerTrashPickup : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI trashDisplay;
     private int trashCount = 0;
     void Start()
     {
-        // trashDisplay.text = "Trash Collected: " + trashCount;
+        trashDisplay.text = "Trash Collected: " + trashCount;
     }
 
 
@@ -27,7 +28,7 @@ public class PlayerTrashPickup : MonoBehaviour
             // pick up trash
             trashCount++;
             Destroy(other.gameObject.transform.root.gameObject);
-            // trashDisplay.text = "Trash Collected: " + trashCount;
+            trashDisplay.text = "Trash Collected: " + trashCount;
         }
     }
 }
