@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Sprites/Jungle Background.jpg.meta
-guid: 15b6ce9f7864a402c85c30a5f8335d25
-========
-guid: a64819fcd1ef0406e8c2abca7bc27f87
->>>>>>>> assets2:Assets/Sprites/Falcon/human-Sheet.png.meta
+guid: e00056479306643c3b571bbf9185f87c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,18 +91,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
