@@ -9,6 +9,20 @@ public class GameManager : MonoBehaviour
     public static bool OutOfEnergy { get; private set; }
     private bool isDead;
     [SerializeField] private GameObject _deathScreen;
+    public static GameManager Instance { get; private set; } 
+
+    private void Awake() 
+    {
+        if (Instance == null) 
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // This makes sure your GameManager persists between scenes
+        } 
+        else 
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
