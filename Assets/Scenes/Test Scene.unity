@@ -34935,6 +34935,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car Factory
       objectReference: {fileID: 0}
+    - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
+      propertyPath: _maxCars
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
+      propertyPath: _randomFactor
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
+      propertyPath: _selfDriveCarPrefab
+      value: 
+      objectReference: {fileID: 31312885096715011, guid: 2e11f7567779d49dfae78b7f0a51d323, type: 3}
     - target: {fileID: 6579218638859777991, guid: f5c6027a97786432299a839da3d11719, type: 3}
       propertyPath: m_RootOrder
       value: 12
