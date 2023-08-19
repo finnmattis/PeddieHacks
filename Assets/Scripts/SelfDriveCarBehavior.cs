@@ -31,7 +31,6 @@ public class SelfDriveCarBehavior : MonoBehaviour
     public static float aggroDuration = 5f;
     private static float timeTargetWasSeen = -aggroDuration - 1;
 
-    // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectsWithTag("Player")[0];
@@ -56,7 +55,6 @@ public class SelfDriveCarBehavior : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         #region detect target
