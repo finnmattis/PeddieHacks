@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SelfDriveCar
   - Canvas
+  - Trash
   layers:
   - Default
   - TransparentFX
