@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable() {
         _player = Player.GetComponent<IPlayerController>();
         _player.DashingChanged += OnDashChange;
+        Checkpoint.OnCheckpoint += OnCheckpoint;
     }
 
     private void OnDisable() {
@@ -42,10 +43,15 @@ public class GameManager : MonoBehaviour
     }
 
     #region Death
-    public delegate void RespawnAction();
+    public delegate void RespawnAction(Vector3 checkpoint);
     public static event RespawnAction OnRespawn;
     private bool _dead;
     private float _invincibleTime;
+    private Vector3 _currentCheckpoint = new Vector3(0, 0, 0);
+
+    public void OnCheckpoint(Vector3 transform) {
+        if (transform.x > _currentCheckpoint.x) _currentCheckpoint = transform;
+    }
 
     public void TriggerDeath() {
         if (_dead == false || Time.time < _invincibleTime) {
@@ -77,7 +83,8 @@ public class GameManager : MonoBehaviour
         _deathScreen.SetActive(false);
         _dead = false;
         _invincibleTime = Time.time + 3;
-        OnRespawn?.Invoke();
+        Energy = 50;
+        OnRespawn?.Invoke(_currentCheckpoint);
     }
 
     #endregion

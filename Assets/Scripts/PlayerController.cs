@@ -69,11 +69,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         GameManager.OnRespawn -= Respawn;
     }
 
-    private void Respawn() {
+    private void Respawn(Vector3 checkpoint) {
         state = "human";
         _speed = new Vector2(0, 0);
         _currentExternalVelocity = new Vector2(0, 0);
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = checkpoint;
     }
 
     private void Awake() {
