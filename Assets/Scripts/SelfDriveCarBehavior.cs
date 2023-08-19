@@ -9,14 +9,11 @@ using static Unity.Mathematics.math;
 /// <summary>
 /// 
 /// Behavior: 
-///     When Not Aggro:
-///         Go forwards until hitting the ground, then turn.
-///     When Aggro:
-///         Horizontal direction matches horizontal direction to enemy
-///         Still turn if about to fall.
+///     Priority: don't fall off -> don't collide -> go towards player (only if aggro)
 /// Aggro description:
 ///     Sends variable # of rays of variable distance. When it reaches the target (player), aggro for all cars for variable direction.
 ///     
+/// The reason why not falling off is a bigger priority than colliding is because falling off is irreversible but bumping into something doesn't really matter
 /// </summary>
 public class SelfDriveCarBehavior : MonoBehaviour
 {
@@ -62,7 +59,7 @@ public class SelfDriveCarBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        #region detection rays
+        #region detect target
         Vector2 rayOrigin = transform.position + 2.1f * ScaledRight;
         for (int i = 0; i < numDetectorRays; i++)
         {
@@ -88,7 +85,8 @@ public class SelfDriveCarBehavior : MonoBehaviour
                 lineRenderers[i].material.color = Color.gray;
             }
         }
-        #endregion detection rays
+        #endregion detect target
+
 
         #region set direction
         if (IsAggro())
@@ -102,6 +100,11 @@ public class SelfDriveCarBehavior : MonoBehaviour
                     ChangeDirection();
                 }
             }
+        }
+
+        if (IsThereObstacle())
+        {
+            ChangeDirection();
         }
 
         // check if there is ground forwards
@@ -121,6 +124,15 @@ public class SelfDriveCarBehavior : MonoBehaviour
         // this is needed because I flip horizontally by negating localScale.x 
         // I could've done y rot as well, but that didn't work
         get { return transform.right * transform.localScale.x; }
+    }
+
+    bool IsThereObstacle()
+    {
+        Vector3 rayOrigin = transform.position + ScaledRight * 2f; // Offset the ray from the object
+        Vector3 rayDirection = ScaledRight * 0.5f;
+        RaycastHit2D raycast = Physics2D.Raycast(rayOrigin, rayDirection, 0.5f);
+        Debug.DrawRay(rayOrigin, rayDirection, Color.red);
+        return (raycast.collider != null) && (raycast.collider != target);
     }
 
     bool IsGroundOnRight()
