@@ -3,11 +3,10 @@ using System.Collections;
 
 public class DeathPlane : MonoBehaviour
 {
-    public delegate void DeathAction();
-    public static event DeathAction OnDeath;
+    [SerializeField] GameObject _gameManager;
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (IsPlayer(other)) OnDeath?.Invoke();
+        if (IsPlayer(other)) _gameManager.GetComponent<GameManager>().TriggerDeath();
     }
 
     private bool IsPlayer(Collider2D other) {

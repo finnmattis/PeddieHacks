@@ -18,12 +18,10 @@ public class GameManager : MonoBehaviour
     private void OnEnable() {
         _player = Player.GetComponent<IPlayerController>();
         _player.DashingChanged += OnDashChange;
-        DeathPlane.OnDeath += OnDeath;
     }
 
     private void OnDisable() {
         _player.DashingChanged -= OnDashChange;
-        DeathPlane.OnDeath -= OnDeath;
     }
 
     private void Update()
@@ -47,7 +45,7 @@ public class GameManager : MonoBehaviour
     public delegate void RespawnAction();
     public static event RespawnAction OnRespawn;
 
-    private void OnDeath() {
+    public void TriggerDeath() {
 
         StartCoroutine(FadeInDeathScreen());
     }

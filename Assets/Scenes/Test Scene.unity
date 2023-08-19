@@ -5651,6 +5651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfad3471ff1c54062b914923e9db0fd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1750873683}
 --- !u!1 &1885031337
 GameObject:
   m_ObjectHideFlags: 0
@@ -36655,11 +36656,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
       propertyPath: _maxCars
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 1750873683}
+    - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
       propertyPath: _randomFactor
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6579218638859777990, guid: f5c6027a97786432299a839da3d11719, type: 3}
       propertyPath: _selfDriveCarPrefab
