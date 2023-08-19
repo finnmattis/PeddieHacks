@@ -131,6 +131,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         HandleHorizontal();
         HandleVertical();
         ApplyMovement();
+
+        print(_wallHitCount);
     }
 
     #region Collisions
