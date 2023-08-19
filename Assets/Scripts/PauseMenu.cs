@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public CanvasGroup pauseMenuCanvasGroup; // Assign the CanvasGroup component here.
+    public CanvasGroup pauseMenuCanvasGroup;
 
     private bool isPaused = false;
 
@@ -28,8 +26,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        pauseMenuCanvasGroup.alpha = 0;              // Hide the UI
-        pauseMenuCanvasGroup.blocksRaycasts = false; // Make it non-interactable
+        pauseMenuCanvasGroup.alpha = 0; 
+        pauseMenuCanvasGroup.blocksRaycasts = false; 
 
         Time.timeScale = 1f;
         isPaused = false;
@@ -37,8 +35,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
-        pauseMenuCanvasGroup.alpha = 1;              // Show the UI
-        pauseMenuCanvasGroup.blocksRaycasts = true;  // Make it interactable
+        pauseMenuCanvasGroup.alpha = 1; 
+        pauseMenuCanvasGroup.blocksRaycasts = true; 
 
         Time.timeScale = 0f;
         isPaused = true;
