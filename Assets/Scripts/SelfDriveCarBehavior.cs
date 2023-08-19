@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UI;
 using TMPro;
 using static Unity.Mathematics.math;
 
@@ -17,17 +13,16 @@ using static Unity.Mathematics.math;
 /// </summary>
 public class SelfDriveCarBehavior : MonoBehaviour
 {
-    public int numDetectorRays;
-    public float detectDist;
-    public float horMoveForceFactor = 1f;
+    [SerializeField] private int _numDetectorRays;
+    [SerializeField] private float _detectDist;
+    [SerializeField] private float _horMoveForceFactor = 1f;
+    [SerializeField] private GameObject _canvas;
+    [SerializeField] private TextMeshProUGUI _textPrefab;
 
     private GameObject target;
     private Rigidbody2D rb;
 
-    public GameObject canvas;
-    public TextMeshProUGUI textPrefab;
-    private LineRenderer[] lineRenderers;
-
+    
     public static float aggroDuration = 5f;
     private static float timeTargetWasSeen = -aggroDuration - 1;
 
@@ -37,50 +32,22 @@ public class SelfDriveCarBehavior : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-        canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
-
-        lineRenderers = new LineRenderer[numDetectorRays];
-        for (int i = 0; i < numDetectorRays; i++)
-        {
-
-            LineRenderer lineRenderer = new GameObject().AddComponent<LineRenderer>();
-
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.1f;
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.material.color = Color.red;
-            lineRenderer.transform.SetParent(transform, false);
-
-            lineRenderers[i] = lineRenderer;
-        }
+        _canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
     }
 
     void Update()
     {
         #region detect target
         Vector2 rayOrigin = transform.position + 2.1f * ScaledRight;
-        for (int i = 0; i < numDetectorRays; i++)
+        for (int i = 0; i < _numDetectorRays; i++)
         {
-            Vector2 rayDirection = ScaledRight + (transform.up * remap(0, numDetectorRays - 1, -0.5f, 2, i));
-            RaycastHit2D raycast = Physics2D.Raycast(rayOrigin, rayDirection, detectDist);
+            Vector2 rayDirection = ScaledRight + (transform.up * remap(0, _numDetectorRays - 1, -0.5f, 2, i));
+            RaycastHit2D raycast = Physics2D.Raycast(rayOrigin, rayDirection, _detectDist);
 
-            // for some reason draw line doesn't work
-            lineRenderers[i].SetPosition(0, rayOrigin);
-            lineRenderers[i].SetPosition(1, rayOrigin + (rayDirection.normalized * detectDist));
-
-            if (raycast.collider == null)
-            {
-                lineRenderers[i].material.color = Color.gray;
-            }
-            else if (raycast.collider.gameObject.transform.root == target.transform.root)
+            if (raycast.collider != null && raycast.collider.gameObject.transform.root == target.transform.root)
             {
                 // target acquired
-                lineRenderers[i].material.color = Color.red;
                 UpdateTimeTargetWasSeen();
-            }
-            else
-            {
-                lineRenderers[i].material.color = Color.gray;
             }
         }
         #endregion detect target
@@ -100,10 +67,7 @@ public class SelfDriveCarBehavior : MonoBehaviour
             }
         }
 
-        if (IsThereObstacle())
-        {
-            ChangeDirection();
-        }
+        if (IsThereObstacle()) ChangeDirection();
 
         // check if there is ground forwards
         if (!IsGroundOnRight())
@@ -113,7 +77,7 @@ public class SelfDriveCarBehavior : MonoBehaviour
         #endregion set direction
 
         // move right but actually forward 
-        rb.AddForce(ScaledRight * horMoveForceFactor);
+        rb.AddForce(ScaledRight * _horMoveForceFactor);
     }
 
     Vector3 ScaledRight
@@ -165,13 +129,13 @@ public class SelfDriveCarBehavior : MonoBehaviour
         if (!IsAggro())
         {
             // previously out of aggro time
-            TextMeshProUGUI newText = Instantiate(textPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
+            TextMeshProUGUI newText = Instantiate(_textPrefab, transform.position + Vector3.up * 2f, Quaternion.identity);
 
             newText.text = "?!";
             newText.color = Color.red;
             // newText.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 2f);
 
-            newText.transform.SetParent(canvas.transform, false);
+            newText.transform.SetParent(_canvas.transform, false);
 
             Destroy(newText.gameObject, 1f);
         }
