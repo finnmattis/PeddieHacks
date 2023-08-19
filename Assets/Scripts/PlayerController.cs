@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         DashCircle.OnDashEnter += DashInRange;
         DashCircle.OnDashExit += DashOutRange;
+
+        GameManager.OnRespawn += Respawn;
     }
 
     private void OnDisable() {
@@ -64,6 +66,14 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         DashCircle.OnDashEnter -= DashInRange;
         DashCircle.OnDashExit -= DashOutRange;
+        GameManager.OnRespawn -= Respawn;
+    }
+
+    private void Respawn() {
+        state = "human";
+        _speed = new Vector2(0, 0);
+        _currentExternalVelocity = new Vector2(0, 0);
+        transform.position = new Vector3(0, 0, 0);
     }
 
     private void Awake() {
