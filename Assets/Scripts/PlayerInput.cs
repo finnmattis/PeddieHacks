@@ -14,9 +14,8 @@ public class PlayerInput : MonoBehaviour {
                      SpecialHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift),
                      HumanDown = Input.GetKeyDown(KeyCode.Alpha1),
                      MonkeyDown = Input.GetKeyDown(KeyCode.Alpha2),
-                     CamelionDown = Input.GetKeyDown(KeyCode.Alpha3),
-                     PenguinDown = Input.GetKey(KeyCode.Alpha4),
-                     EagleDown = Input.GetKeyDown(KeyCode.Alpha5),
+                     PenguinDown = Input.GetKey(KeyCode.Alpha3),
+                     FalconDown = Input.GetKeyDown(KeyCode.Alpha4),
         };
     }
 }
@@ -29,7 +28,6 @@ public struct FrameInput {
     public bool SpecialHeld;
     public bool HumanDown;
     public bool MonkeyDown;
-    public bool CamelionDown;
     public bool PenguinDown;
-    public bool EagleDown;
+    public bool FalconDown;
 }

@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour
     #region Death
     public delegate void RespawnAction(Vector3 checkpoint);
     public static event RespawnAction OnRespawn;
+    public delegate void DeathAction();
+    public static event DeathAction OnDeath;
+
     private bool _dead;
     private float _invincibleTime;
     private Vector3 _currentCheckpoint = new Vector3(0, 0, 0);
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void TriggerDeath() {
+        OnDeath?.Invoke();
         if (_dead == false || Time.time < _invincibleTime) {
             _dead = true;
             StartCoroutine(FadeInDeathScreen());

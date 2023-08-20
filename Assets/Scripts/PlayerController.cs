@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         DashCircle.OnDashEnter += DashInRange;
         DashCircle.OnDashExit += DashOutRange;
 
+        GameManager.OnDeath += OnDeath;
         GameManager.OnRespawn += Respawn;
     }
 
@@ -64,14 +65,9 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         DashCircle.OnDashEnter -= DashInRange;
         DashCircle.OnDashExit -= DashOutRange;
-        GameManager.OnRespawn -= Respawn;
-    }
 
-    private void Respawn(Vector3 checkpoint) {
-        state = "human";
-        _speed = new Vector2(0, 0);
-        _currentExternalVelocity = new Vector2(0, 0);
-        transform.position = checkpoint;
+        GameManager.OnRespawn -= Respawn;
+        GameManager.OnDeath -= OnDeath;
     }
 
     private void Awake() {
@@ -87,6 +83,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     }
 
     private void GatherInput() {
+        if (_dead) return;
         FrameInput = _input.FrameInput;
         if (FrameInput.HumanDown)
         {
@@ -98,17 +95,13 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             state = "monkey";
             StateChanged?.Invoke(1);
         }
-        else if (FrameInput.CamelionDown)
-        {
-            state = "camelion";
-        }
         else if (FrameInput.PenguinDown)
         {
             state = "penguin";
             StateChanged?.Invoke(2);
         }
-        else if (FrameInput.EagleDown) {
-            state = "eagle";
+        else if (FrameInput.FalconDown) {
+            state = "falcon";
             StateChanged?.Invoke(3);
         }
 
@@ -116,11 +109,11 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         else Sprinting = false;
         if (state == "monkey" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) grab = true;
         else grab = false;
-        if (state == "camelion" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) _grappleInput = true;
+        if (state == "monkey" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) _grappleInput = true;
         else _grappleInput = false;
         if (state == "penguin" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) _slideInput = true;
         else _slideInput = false;
-        if (state == "eagle" && FrameInput.SpecialDown && !GameManager.OutOfEnergy) _dashToConsume = true;
+        if (state == "falcon" && FrameInput.SpecialDown && !GameManager.OutOfEnergy) _dashToConsume = true;
 
 
         if (_stats.SnapInput)
@@ -156,6 +149,25 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         HandleVertical();
         ApplyMovement();
     }
+
+    #region Death
+
+    private bool _dead = false;
+
+    private void OnDeath() {
+        //_dead = true;
+    }
+
+    private void Respawn(Vector3 checkpoint) {
+        state = "human";
+        StateChanged?.Invoke(0);
+        _speed = new Vector2(0, 0);
+        _currentExternalVelocity = new Vector2(0, 0);
+        transform.position = checkpoint;
+        _dead = false;
+    }
+
+    #endregion
 
     #region Collisions
 
@@ -367,7 +379,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     }
 
     private void HandleDash() {
-        if (state != "eagle") return;
+        if (state != "falcon") return;
         if (_dashInRange && _dashToConsume && _canDash && Time.time > _nextDashTime) {
             var dir = new Vector2(FrameInput.Move.x, Mathf.Max(FrameInput.Move.y, 0f)).normalized;
             if (dir == Vector2.zero) {
@@ -430,7 +442,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             return;
         }
 
-        if (state != "camelion" || !_grappleInput || _grapples.Count == 0 || _grounded || _nextGrappleTime > Time.time) // Not Grappling
+        if (state != "monkey" || !_grappleInput || _grapples.Count == 0 || _grounded || _nextGrappleTime > Time.time) // Not Grappling
         { 
             return;
         }
