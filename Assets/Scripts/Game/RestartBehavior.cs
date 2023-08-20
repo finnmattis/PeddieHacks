@@ -5,6 +5,7 @@ public class RestartBehavior : MonoBehaviour
 {
     public void RestartLevel()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
