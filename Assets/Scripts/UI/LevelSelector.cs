@@ -3,9 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelector : MonoBehaviour
 {
-    public void OpenScene()
+    public void OpenScene(string sceneToLoad)
     {
-        SceneManager.LoadScene("Test Scene");
-        
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
