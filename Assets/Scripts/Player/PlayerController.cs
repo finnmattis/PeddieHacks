@@ -134,7 +134,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         CheckCollisions();
         HandleCollisions();
 
-
         HandleJump();
 
         HandleWalls();
@@ -506,7 +505,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             // Prevent useless horizontal speed buildup when against a wall
             if (_hittingWall.collider && Mathf.Abs(_rb.velocity.x) < 0.01f && !_isLeavingWall) _speed.x = 0;
             var xInput = FrameInput.Move.x;
-            var speedMultiplier = (Sprinting ? 1.4f : 1f) * (Grappling ? 3f : 1f) * (state == "penguin" && !Sliding ? 0.6f : 1f) * (Sliding && _lastGroundIce ? 1.7f : 1f) * (Sliding && !_lastGroundIce ? 0.2f : 1f);
+            var speedMultiplier = (Sprinting ? 1.4f : 1f) * (Grappling ? 3f : 1f) * (state == "penguin" && !Sliding ? 0.6f : 1f) * (state == "penguin" && _lastGroundIce && !Sliding ? 1.5f : 1f) * (Sliding && _lastGroundIce ? 3f : 1f);
             var curAcceleration = _iceHitCount == 0 ? _stats.Acceleration : _stats.Acceleration / 6;
             _speed.x = Mathf.MoveTowards(_speed.x, xInput * _stats.MaxSpeed * speedMultiplier, _currentWallJumpMoveMultiplier * curAcceleration * Time.fixedDeltaTime);
         }
