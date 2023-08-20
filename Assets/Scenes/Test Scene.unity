@@ -959,6 +959,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999ba6e99344647b79b2a79af2f38a1e, type: 3}
+--- !u!1 &857041018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8661674533236061384, guid: 883823f067e364f6fa01402d6e053a31, type: 3}
+  m_PrefabInstance: {fileID: 319160028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &939818573
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4211,6 +4216,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 999ba6e99344647b79b2a79af2f38a1e, type: 3}
+--- !u!1 &1489609749 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8661674534496046880, guid: 883823f067e364f6fa01402d6e053a31, type: 3}
+  m_PrefabInstance: {fileID: 319160028}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1750873683 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3159812745559811676, guid: 5bc398e3cac3449bdb0961031da91da0, type: 3}
@@ -5281,7 +5291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1696407135413444771, guid: 7c42cb9625185494bb6161710e3c5d97, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.099999
+      value: 6.0999994
       objectReference: {fileID: 0}
     - target: {fileID: 1696407135413444771, guid: 7c42cb9625185494bb6161710e3c5d97, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5521,7 +5531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5388554636310522336, guid: 13ddfbf7a89e04a2e8e50d4e89c4a688, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.099999
+      value: 6.0999994
       objectReference: {fileID: 0}
     - target: {fileID: 5388554636310522336, guid: 13ddfbf7a89e04a2e8e50d4e89c4a688, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5670,9 +5680,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7539853857807091792, guid: bd22aa9c8e10e444095eb4cb963dc71d, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1544650614943988254}
+    - target: {fileID: 7539853857807091792, guid: bd22aa9c8e10e444095eb4cb963dc71d, type: 3}
       propertyPath: _endScreen
       value: 
       objectReference: {fileID: 648686727}
+    - target: {fileID: 7539853857807091792, guid: bd22aa9c8e10e444095eb4cb963dc71d, type: 3}
+      propertyPath: _energyBar
+      value: 
+      objectReference: {fileID: 857041018}
+    - target: {fileID: 7539853857807091792, guid: bd22aa9c8e10e444095eb4cb963dc71d, type: 3}
+      propertyPath: _trashCounter
+      value: 
+      objectReference: {fileID: 1489609749}
     - target: {fileID: 8330250662596104244, guid: bd22aa9c8e10e444095eb4cb963dc71d, type: 3}
       propertyPath: m_Name
       value: Level Finisher
