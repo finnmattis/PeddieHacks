@@ -2335,11 +2335,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5484468669312352296, guid: 0c28625eac71c4483ad6ff46795a2c0a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.7
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 5484468669312352296, guid: 0c28625eac71c4483ad6ff46795a2c0a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.1
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 5484468669312352296, guid: 0c28625eac71c4483ad6ff46795a2c0a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -36605,7 +36605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 2969068312484171668}
   _sprite: {fileID: 2969068312484171669}
-  _maxIdleSpeed: 2
   _crouchScaleModifier: {x: 1, y: 0.5}
   _maxTilt: 5
   _tiltSpeed: 20
