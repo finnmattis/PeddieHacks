@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
             Energy = 0;
             OutOfEnergy = true;
         }
+        if (Energy > 100) Energy = 100;
         if (OutOfEnergy && Energy > 50) OutOfEnergy = false;
     }
 
