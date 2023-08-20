@@ -14,7 +14,7 @@ public class LevelFinisher : MonoBehaviour
         if (!IsPlayer(other)) return;
         LevelEnd = true;
 
-        // Time.timeScale = 0;
+        Time.timeScale = 0;
         var deathText = _endScreen.transform.Find("Level End Message");
         var tmpText = deathText.GetComponent<TMP_Text>();
 
