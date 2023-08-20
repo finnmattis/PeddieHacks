@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void TriggerDeath() {
-        OnDeath?.Invoke();
-        if (_dead == false || Time.time < _invincibleTime) {
+        if (_dead == false && Time.time > _invincibleTime) {
+            OnDeath?.Invoke();
             _dead = true;
             StartCoroutine(FadeInDeathScreen());
         }
