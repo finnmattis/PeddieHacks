@@ -11,6 +11,7 @@ public class RestartBehavior : MonoBehaviour
 
     public void ToMainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Main Menu");
     }
 }
