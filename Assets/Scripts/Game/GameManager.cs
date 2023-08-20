@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void Respawn() {
         StopCoroutine("FadeInDeathScreen");
+        Time.timeScale = 1f;
         _deathScreen.SetActive(false);
         _dead = false;
         _invincibleTime = Time.time + 3;
