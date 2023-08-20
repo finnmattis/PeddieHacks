@@ -41,7 +41,7 @@ MonoBehaviour:
   CoyoteFrames: 7
   JumpBufferFrames: 7
   WallClimbSpeed: 10
-  WallFallAcceleration: 8
+  WallFallAcceleration: 0
   MaxWallFallSpeed: 15
   WallJumpPower: {x: 30, y: 35}
   WallJumpInputLossFrames: 18

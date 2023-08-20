@@ -40,7 +40,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public bool Grappling { get; private set; }
     public bool Sliding { get; private set; }
     public string state; 
-    public bool grab;
 
     #endregion
 
@@ -107,8 +106,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         if (state == "human" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) Sprinting = true;
         else Sprinting = false;
-        if (state == "monkey" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) grab = true;
-        else grab = false;
         if (state == "monkey" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) _grappleInput = true;
         else _grappleInput = false;
         if (state == "penguin" && FrameInput.SpecialHeld && !GameManager.OutOfEnergy) _slideInput = true;
@@ -257,13 +254,13 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private int _lastWallDirection; // for coyote wall jumps
     private int _frameLeftWall; // for coyote wall jumps
     private bool _isLeavingWall; // prevents immediate re-sticking to wall
+    private Vector2 _ledgeCornerPos;
 
     private void HandleWalls() {
         if (state != "monkey") return;
 
         _currentWallJumpMoveMultiplier = Mathf.MoveTowards(_currentWallJumpMoveMultiplier, 1f, 1f / _stats.WallJumpInputLossFrames);
 
-        // May need to prioritize the nearest wall here... But who is going to make a climbable wall that tight?
         if (_wallHitCount > 0 && _wallHits[0].GetContacts(_wallContacts) > 0) {
             WallDirection = (int)Mathf.Sign(_wallContacts[0].point.x - transform.position.x);
             _lastWallDirection = WallDirection;
@@ -275,7 +272,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
         bool ShouldStickToWall() {
             if (WallDirection == 0 || _grounded) return false;
-            return grab;
+            return true;
         }
     }
 
@@ -509,12 +506,15 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         else {
             // Prevent useless horizontal speed buildup when against a wall
             if (_hittingWall.collider && Mathf.Abs(_rb.velocity.x) < 0.01f && !_isLeavingWall) _speed.x = 0;
-
             var xInput = FrameInput.Move.x;
             var speedMultiplier = (Sprinting ? 1.4f : 1f) * (Grappling ? 3f : 1f) * (state == "penguin" && !Sliding ? 0.6f : 1f) * (Sliding && _lastGroundIce ? 1.7f : 1f) * (Sliding && !_lastGroundIce ? 0.2f : 1f);
             var curAcceleration = _iceHitCount == 0 ? _stats.Acceleration : _stats.Acceleration / 6;
             _speed.x = Mathf.MoveTowards(_speed.x, xInput * _stats.MaxSpeed * speedMultiplier, _currentWallJumpMoveMultiplier * curAcceleration * Time.fixedDeltaTime);
         }
+
+        //Make player "stick" to wall
+        if (Climbing && !_isLeavingWall) _speed.x += 0.5f * WallDirection ;
+
     }
 
     #endregion
