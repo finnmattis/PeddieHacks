@@ -2556,6 +2556,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5298809052774016492, guid: 38f8112fc4a324a93bdba2d3392f8661, type: 3}
   m_PrefabInstance: {fileID: 1188341168}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1188341170 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5298809052774016483, guid: 38f8112fc4a324a93bdba2d3392f8661, type: 3}
+  m_PrefabInstance: {fileID: 1188341168}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1202920668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,7 +3981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a92bf2ea2a44d08b4bf72738bdd6b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
+  Player: {fileID: 1188341170}
   _deathScreen: {fileID: 984823254}
 --- !u!4 &1750873685
 Transform:
