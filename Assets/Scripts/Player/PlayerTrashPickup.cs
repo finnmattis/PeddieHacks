@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerTrashPickup : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI trashDisplay;
-    private int trashCount = 0;
+    public int TrashCount = 0;
 
     private void OnEnable() {
         GameManager.OnRespawn += ResetTrash;
@@ -17,12 +17,12 @@ public class PlayerTrashPickup : MonoBehaviour
     }
 
     private void ResetTrash(Vector3 _) {
-        trashCount = 0;
+        TrashCount = 0;
     }
 
     void Start()
     {
-        trashDisplay.text = "Trash Collected: " + trashCount;
+        trashDisplay.text = "Trash Collected: " + TrashCount;
     }
 
 
@@ -36,9 +36,9 @@ public class PlayerTrashPickup : MonoBehaviour
         if (other.gameObject.transform.root.CompareTag("Trash"))
         {
             // pick up trash
-            trashCount++;
+            TrashCount++;
             Destroy(other.gameObject.transform.root.gameObject);
-            trashDisplay.text = "Trash Collected: " + trashCount;
+            trashDisplay.text = "Trash Collected: " + TrashCount;
         }
     }
 }
