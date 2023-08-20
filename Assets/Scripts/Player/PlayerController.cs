@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private bool _dead = false;
 
     private void OnDeath() {
-        //_dead = true;
+        _dead = true;
     }
 
     private void Respawn(Vector3 checkpoint) {
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         StateChanged?.Invoke(0);
         _speed = new Vector2(0, 0);
         _currentExternalVelocity = new Vector2(0, 0);
-        transform.position = checkpoint;
+        transform.position = new Vector3(checkpoint.x, checkpoint.y, 2);;
         _dead = false;
     }
 
@@ -274,6 +274,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             if (WallDirection == 0 || _grounded) return false;
             return true;
         }
+        Debug.Log(_ledgeCornerPos);
     }
 
     private void ToggleOnWall(bool on) {
