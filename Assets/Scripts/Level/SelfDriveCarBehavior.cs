@@ -17,7 +17,7 @@ using static Unity.Mathematics.math;
 /// </summary>
 public class SelfDriveCarBehavior : MonoBehaviour
 {
-    private GameObject _gameManager;
+    [SerializeField] private GameObject _gameManager;
     [SerializeField] private int numDetectorRays;
     [SerializeField] private float detectDist;
     [SerializeField] private float horMoveForceFactor = 1f;
@@ -32,18 +32,11 @@ public class SelfDriveCarBehavior : MonoBehaviour
     public static float aggroDuration = 5f;
     private static float timeTargetWasSeen = -aggroDuration - 1;
 
-    public void SetGameManager(GameObject gm)
-    {
-        _gameManager = gm;
-    }
-
     void Start()
     {
         target = GameObject.FindGameObjectsWithTag("Player")[0];
 
         rb = GetComponent<Rigidbody2D>();
-
-        SetGameManager(GameObject.FindGameObjectsWithTag("Game Manager")[0]);
 
         canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
 
