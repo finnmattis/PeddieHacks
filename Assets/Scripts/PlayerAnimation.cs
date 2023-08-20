@@ -42,6 +42,7 @@ public class PlayerAnimation : MonoBehaviour {
         _player.GroundedChanged += OnGroundedChanged;
         _player.DashingChanged += OnDashChanged;
         _player.StateChanged += OnStateChange;
+        _player.WallGrabChanged += OnWallGrab;
 
         _moveParticles.Play();
     }
@@ -51,12 +52,18 @@ public class PlayerAnimation : MonoBehaviour {
         _player.GroundedChanged -= OnGroundedChanged;
         _player.DashingChanged -= OnDashChanged;
         _player.StateChanged -= OnStateChange;
+        _player.WallGrabChanged -= OnWallGrab;
 
         _moveParticles.Stop();
     }
 
     private void OnStateChange(int state) {
         _anim.SetInteger("State", state);
+    }
+
+    private void OnWallGrab(bool grabbing) {
+        if (grabbing) _anim.SetTrigger("Grabbing");
+        if (!grabbing) _anim.ResetTrigger("Grabbing");
     }
 
     private void Update() {
