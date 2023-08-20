@@ -32,7 +32,8 @@ public class SelfDriveCarBehavior : MonoBehaviour
     public static float aggroDuration = 5f;
     private static float timeTargetWasSeen = -aggroDuration - 1;
 
-    public void SetGameManager(GameObject gm) {
+    public void SetGameManager(GameObject gm)
+    {
         _gameManager = gm;
     }
 
@@ -41,6 +42,8 @@ public class SelfDriveCarBehavior : MonoBehaviour
         target = GameObject.FindGameObjectsWithTag("Player")[0];
 
         rb = GetComponent<Rigidbody2D>();
+
+        SetGameManager(GameObject.FindGameObjectsWithTag("Game Manager")[0]);
 
         canvas = GameObject.FindGameObjectsWithTag("Canvas")[0];
 
@@ -71,7 +74,7 @@ public class SelfDriveCarBehavior : MonoBehaviour
             _gameManager.GetComponent<GameManager>().TriggerDeath();
         }
 
-        
+
 
         #endregion
 
@@ -132,7 +135,7 @@ public class SelfDriveCarBehavior : MonoBehaviour
 
     bool IsThereObstacle()
     {
-        Vector3 rayOrigin = transform.position + ScaledRight * 2f; // Offset the ray from the object
+        Vector3 rayOrigin = transform.position + ScaledRight * 2.01f; // Offset the ray from the object
         Vector3 rayDirection = ScaledRight * 0.5f;
         RaycastHit2D raycast = Physics2D.Raycast(rayOrigin, rayDirection, 0.5f);
         Debug.DrawRay(rayOrigin, rayDirection, Color.red);
