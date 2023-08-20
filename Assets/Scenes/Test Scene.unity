@@ -625,7 +625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.999999, y: 3.0699997, z: -10}
+  m_LocalPosition: {x: 22.8, y: 25.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1578,7 +1578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &984823255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2129,7 +2129,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095287144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.999999, y: 3.0699997, z: -10}
+  m_LocalPosition: {x: 22.8, y: 25.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6749,7 +6749,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544650614943988254}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.07, z: 0}
+  m_LocalPosition: {x: 16.8, y: 25.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6965,7 +6965,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 3.07
+  m_Distance: 30.620255
   m_MaxDistanceOnly: 0
 --- !u!114 &1544650614943988259
 MonoBehaviour:
@@ -36606,7 +36606,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _anim: {fileID: 2969068312484171668}
   _sprite: {fileID: 2969068312484171669}
-  _maxIdleSpeed: 2
   _crouchScaleModifier: {x: 1, y: 0.5}
   _maxTilt: 5
   _tiltSpeed: 20

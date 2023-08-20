@@ -125,7 +125,6 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void OnJumped(bool wallJumped) {
         _anim.SetTrigger("Jumping");
-        _anim.ResetTrigger("Grounded");
 
         // Only play particles when grounded (avoid coyote)
         if (_grounded) {
@@ -139,7 +138,7 @@ public class PlayerAnimation : MonoBehaviour {
     private void OnGroundedChanged(bool grounded, float impact) {
         _grounded = grounded;
         if (grounded) {
-            _anim.SetTrigger("Grounded");
+            _anim.ResetTrigger("Jumping");
             _source.PlayOneShot(_footsteps[UnityEngine.Random.Range(0, _footsteps.Length)]);
             _moveParticles.Play();
 
