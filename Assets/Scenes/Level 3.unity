@@ -2225,6 +2225,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5298809052774016478, guid: 38f8112fc4a324a93bdba2d3392f8661, type: 3}
+      propertyPath: trashDisplay
+      value: 
+      objectReference: {fileID: 1534029864}
     - target: {fileID: 5298809052774016483, guid: 38f8112fc4a324a93bdba2d3392f8661, type: 3}
       propertyPath: m_Name
       value: Player
