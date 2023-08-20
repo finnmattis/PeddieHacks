@@ -254,7 +254,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private int _lastWallDirection; // for coyote wall jumps
     private int _frameLeftWall; // for coyote wall jumps
     private bool _isLeavingWall; // prevents immediate re-sticking to wall
-    private Vector2 _ledgeCornerPos;
 
     private void HandleWalls() {
         if (state != "monkey") return;
@@ -274,7 +273,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             if (WallDirection == 0 || _grounded) return false;
             return true;
         }
-        Debug.Log(_ledgeCornerPos);
     }
 
     private void ToggleOnWall(bool on) {

@@ -7,10 +7,12 @@ public class LevelFinisher : MonoBehaviour
     [SerializeField] private GameObject _trashCounter;
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private GameObject _player;
+    public bool LevelEnd = false;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!IsPlayer(other)) return;
+        LevelEnd = true;
 
         // Time.timeScale = 0;
         var deathText = _endScreen.transform.Find("Level End Message");
