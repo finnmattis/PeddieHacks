@@ -1355,7 +1355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3162646786414309772, guid: 2a5099d374d5c421595505b857c9e690, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.512757
+      value: 15.202746
       objectReference: {fileID: 0}
     - target: {fileID: 3162646786414309772, guid: 2a5099d374d5c421595505b857c9e690, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1412,7 +1412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3162646786414309772, guid: 2a5099d374d5c421595505b857c9e690, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3392801
+      value: 2.350709
       objectReference: {fileID: 0}
     - target: {fileID: 3162646786414309772, guid: 2a5099d374d5c421595505b857c9e690, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7249,7 +7249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3162646786414309772, guid: 2a5099d374d5c421595505b857c9e690, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.910011
+      value: 30.6
       objectReference: {fileID: 0}
     - target: {fileID: 3162646786414309772, guid: 2a5099d374d5c421595505b857c9e690, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7542,6 +7542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trashDisplay: {fileID: 1534029864}
+  TrashCount: 0
 --- !u!1001 &2445593602908120519
 PrefabInstance:
   m_ObjectHideFlags: 0
