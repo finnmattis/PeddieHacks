@@ -43,13 +43,13 @@ MonoBehaviour:
   WallClimbSpeed: 10
   WallFallAcceleration: 8
   MaxWallFallSpeed: 15
-  WallJumpPower: {x: 35, y: 30}
+  WallJumpPower: {x: 15, y: 30}
   WallJumpInputLossFrames: 18
   WallJumpCoyoteFrames: 5
-  WallDetectorSize: {x: 2, y: 1.25}
-  DashVelocity: 50
+  WallDetectorSize: {x: 1, y: 1.25}
+  DashVelocity: 75
   DashDurationFrames: 5
-  DashCooldown: 1.5
+  DashCooldown: 1
   DashEndHorizontalMultiplier: 0.25
   ExternalVelocityDecay: 100
   ShowWallDetection: 1
