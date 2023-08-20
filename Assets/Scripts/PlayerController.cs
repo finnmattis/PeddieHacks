@@ -10,10 +10,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     [HideInInspector] private Rigidbody2D _rb; 
     [SerializeField] private CapsuleCollider2D _standingCollider;
-    [SerializeField] private CapsuleCollider2D _crouchingCollider;
     [SerializeField] private DistanceJoint2D _distanceJoint;
     [SerializeField] private LineRenderer _lineRenderer;
-    private CapsuleCollider2D _col; // current active collider
     private PlayerInput _input;
     private bool _cachedTriggerSetting;
 
@@ -38,7 +36,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     public Vector2 GroundNormal { get; private set; }
     public int WallDirection { get; private set; }
     public bool Sprinting { get; private set; }
-    public bool Crouching { get; private set; }
     public bool Climbing { get; private set; }
     public bool Grappling { get; private set; }
     public bool Sliding { get; private set; }
@@ -83,7 +80,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         _cachedTriggerSetting = Physics2D.queriesHitTriggers;
         Physics2D.queriesStartInColliders = false;
         state = "human";
-        ToggleColliders(isStanding: true);
     }
 
     private void Update() {
@@ -149,7 +145,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
         HandleCollisions();
 
 
-        HandleCrouching();
         HandleJump();
 
         HandleWalls();
@@ -180,15 +175,15 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private void CheckCollisions() {
         Physics2D.queriesHitTriggers = false;
 
-        _groundHitCount = Physics2D.CapsuleCastNonAlloc(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _groundHits, _stats.GrounderDistance, ~_stats.PlayerLayer);
-        _ceilingHitCount = Physics2D.CapsuleCastNonAlloc(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _ceilingHits, _stats.GrounderDistance, ~_stats.PlayerLayer);
+        _groundHitCount = Physics2D.CapsuleCastNonAlloc(_standingCollider.bounds.center, _standingCollider.size, _standingCollider.direction, 0, Vector2.down, _groundHits, _stats.GrounderDistance, ~_stats.PlayerLayer);
+        _ceilingHitCount = Physics2D.CapsuleCastNonAlloc(_standingCollider.bounds.center, _standingCollider.size, _standingCollider.direction, 0, Vector2.up, _ceilingHits, _stats.GrounderDistance, ~_stats.PlayerLayer);
         
         // Ice
-        _iceHitCount = Physics2D.CapsuleCastNonAlloc(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _iceHits, _stats.GrounderDistance, _stats.IceLayer);
+        _iceHitCount = Physics2D.CapsuleCastNonAlloc(_standingCollider.bounds.center, _standingCollider.size, _standingCollider.direction, 0, Vector2.down, _iceHits, _stats.GrounderDistance, _stats.IceLayer);
 
         var bounds = GetWallDetectionBounds();
         _wallHitCount = Physics2D.OverlapBoxNonAlloc(bounds.center, bounds.size, 0, _wallHits, _stats.ClimbableLayer);
-        _hittingWall = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, new Vector2(_input.FrameInput.Move.x, 0), _stats.GrounderDistance, ~_stats.PlayerLayer);
+        _hittingWall = Physics2D.CapsuleCast(_standingCollider.bounds.center, _standingCollider.size, _standingCollider.direction, 0, new Vector2(_input.FrameInput.Move.x, 0), _stats.GrounderDistance, ~_stats.PlayerLayer);
         
 
         Physics2D.queriesHitTriggers = true; 
@@ -233,7 +228,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     }
 
     private bool IsStandingPosClear(Vector2 pos) => CheckPos(pos, _standingCollider);
-    private bool IsCrouchingPosClear(Vector2 pos) => CheckPos(pos, _crouchingCollider);
 
     private bool CheckPos(Vector2 pos, CapsuleCollider2D col) {
         Physics2D.queriesHitTriggers = false;
@@ -291,36 +285,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     #endregion
 
-    #region Crouching
-
-    private int _frameStartedCrouching;
-
-    private bool CrouchPressed => FrameInput.Move.y < -_stats.VerticalDeadzoneThreshold;
-    private bool CanStand => IsStandingPosClear(_rb.position + new Vector2(0, _stats.CrouchBufferCheck));
-
-    private void HandleCrouching() {
-
-        if (!Crouching && CrouchPressed && _grounded) TryToggleCrouching(true);
-        else if (Crouching && (!CrouchPressed || !_grounded)) TryToggleCrouching(false);
-    }
-
-    private bool TryToggleCrouching(bool shouldCrouch) {
-        if (Crouching && !CanStand) return false;
-
-        Crouching = shouldCrouch;
-        ToggleColliders(!shouldCrouch);
-        if (Crouching) _frameStartedCrouching = _fixedFrame;
-        return true;
-    }
-
-    private void ToggleColliders(bool isStanding) {
-        _col = isStanding ? _standingCollider : _crouchingCollider;
-        _standingCollider.enabled = isStanding;
-        _crouchingCollider.enabled = !isStanding;
-    }
-
-    #endregion
-
     #region Jumping
 
     private bool _jumpToConsume;
@@ -349,7 +313,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     }
 
     private void NormalJump() {
-        if (Crouching && !TryToggleCrouching(false)) return; // try standing up first so we don't get stuck in low ceilings
         _endedJumpEarly = false;
         _frameJumpWasPressed = 0; // prevents double-dipping 1 input's jumpToConsume and buffered jump for low ceilings
         _bufferedJumpUsable = false;
@@ -405,7 +368,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
 
     private void HandleDash() {
         if (state != "eagle") return;
-        if (_dashInRange && _dashToConsume && _canDash && !Crouching && Time.time > _nextDashTime) {
+        if (_dashInRange && _dashToConsume && _canDash && Time.time > _nextDashTime) {
             var dir = new Vector2(FrameInput.Move.x, Mathf.Max(FrameInput.Move.y, 0f)).normalized;
             if (dir == Vector2.zero) {
                 _dashToConsume = false;
@@ -467,7 +430,7 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             return;
         }
 
-        if (state != "camelion" || !_grappleInput || _grapples.Count == 0 || Crouching || _grounded || _nextGrappleTime > Time.time) // Not Grappling
+        if (state != "camelion" || !_grappleInput || _grapples.Count == 0 || _grounded || _nextGrappleTime > Time.time) // Not Grappling
         { 
             return;
         }
@@ -529,13 +492,8 @@ public class PlayerController : MonoBehaviour, IPlayerController {
             var deceleration = _grounded ? (_iceHitCount == 0 ? _stats.GroundDeceleration : _stats.GroundDeceleration / 3) * (_stickyFeet ? _stats.StickyFeetMultiplier : 1) : _stats.AirDeceleration;
             _speed.x = Mathf.MoveTowards(_speed.x, 0, deceleration * Time.fixedDeltaTime);
         }
-        // Crawling
-        else if (Crouching && _grounded) {
-            var crouchPoint = Mathf.InverseLerp(0, _stats.CrouchSlowdownFrames, _fixedFrame - _frameStartedCrouching);
-            var diminishedMaxSpeed = _stats.MaxSpeed * Mathf.Lerp(1, _stats.CrouchSpeedPenalty, crouchPoint);
-            _speed.x = Mathf.MoveTowards(_speed.x, FrameInput.Move.x * diminishedMaxSpeed, _stats.GroundDeceleration * Time.fixedDeltaTime);
-        }
-        // Regular Horizontal Movement
+
+       // Regular Horizontal Movement
         else {
             // Prevent useless horizontal speed buildup when against a wall
             if (_hittingWall.collider && Mathf.Abs(_rb.velocity.x) < 0.01f && !_isLeavingWall) _speed.x = 0;
@@ -603,7 +561,6 @@ public class PlayerController : MonoBehaviour, IPlayerController {
     private void OnValidate() {
         if (_stats == null) Debug.LogWarning("Please assign a PlayerStats asset to the Player Controller's Stats slot", this);
         if (_standingCollider == null) Debug.LogWarning("Please assign a Capsule Collider to the Standing Collider slot", this);
-        if (_crouchingCollider == null) Debug.LogWarning("Please assign a Capsule Collider to the Crouching Collider slot", this);
         if (_rb == null && !TryGetComponent(out _rb)) Debug.LogWarning("Ensure the GameObject with the Player Controller has a Rigidbody2D", this);
     }
 #endif
@@ -623,7 +580,6 @@ public interface IPlayerController {
     public Vector2 GroundNormal { get; }
     public int WallDirection { get; }
     public bool Sprinting { get; }
-    public bool Crouching { get; }
     public bool Climbing { get; }
     public bool Grappling { get; }
     public bool Sliding { get; }

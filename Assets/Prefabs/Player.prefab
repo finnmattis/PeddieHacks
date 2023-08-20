@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5298809052774016482}
   - component: {fileID: 5298809052774016494}
   - component: {fileID: 5298809052774016493}
-  - component: {fileID: 5298809052774016488}
   - component: {fileID: 5298809052774016479}
   - component: {fileID: 5298809052774016476}
   - component: {fileID: 5298809052774016478}
@@ -54,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: aad28d0e2416f4cbc909e38d06752c79, type: 2}
   _standingCollider: {fileID: 5298809052774016493}
-  _crouchingCollider: {fileID: 5298809052774016488}
+  _crouchingCollider: {fileID: 5298809052774016493}
   _distanceJoint: {fileID: 5298809052774016479}
   _lineRenderer: {fileID: 5298809052774016476}
   state: 
@@ -108,22 +107,6 @@ CapsuleCollider2D:
   m_Offset: {x: -0.10579896, y: 0.11054659}
   m_Size: {x: 1.8874569, y: 3.2775102}
   m_Direction: 0
---- !u!70 &5298809052774016488
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5298809052774016483}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.00000004849626, y: -0.40681618}
-  m_Size: {x: 2.2136493, y: 2.2136493}
-  m_Direction: 1
 --- !u!232 &5298809052774016479
 DistanceJoint2D:
   m_ObjectHideFlags: 0

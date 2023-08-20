@@ -7,7 +7,6 @@ public class PlayerAnimation : MonoBehaviour {
     [SerializeField] private SpriteRenderer _sprite;
 
     [Header("Settings")]
-    [SerializeField] private Vector2 _crouchScaleModifier = new(1, 0.5f);
     [SerializeField] private float _maxTilt = 5; // In degrees around the Z axis
     [SerializeField] private float _tiltSpeed = 20;
     
@@ -79,8 +78,6 @@ public class PlayerAnimation : MonoBehaviour {
 
         HandleCharacterTilt(xInput);
 
-        HandleCrouching();
-
         HandleGrappling();
     }
 
@@ -98,19 +95,6 @@ public class PlayerAnimation : MonoBehaviour {
         var targetRot = _grounded && _player.GroundNormal != Vector2.up ? runningTilt * _player.GroundNormal : runningTilt * Vector2.up;
 
         _anim.transform.up = Vector3.RotateTowards(_anim.transform.up, targetRot, _tiltSpeed * Time.deltaTime, 0f);
-    }
-
-    private bool _crouching;
-    private void HandleCrouching() {
-        if (!_crouching && _player.Crouching) {
-            _sprite.size = _defaultSpriteSize * _crouchScaleModifier;
-            _source.PlayOneShot(_slideClips[UnityEngine.Random.Range(0, _slideClips.Length)], Mathf.InverseLerp(0, 5, Mathf.Abs(_player.Speed.x)));
-            _crouching = true;
-        }
-        else if (_crouching && !_player.Crouching && _crouching) {
-            _sprite.size = _defaultSpriteSize;
-            _crouching = false;
-        }
     }
 
     private bool _grappling;
