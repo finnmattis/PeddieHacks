@@ -224,6 +224,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Select Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
 --- !u!224 &42474113 stripped
@@ -407,6 +415,14 @@ PrefabInstance:
     - target: {fileID: 4896123861799118913, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
       propertyPath: m_Name
       value: Level Select Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
@@ -822,6 +838,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Select Button (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
 --- !u!224 &445559451 stripped
@@ -1197,6 +1221,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Select Button (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
 --- !u!224 &787744087 stripped
@@ -1304,6 +1336,14 @@ PrefabInstance:
     - target: {fileID: 4896123861799118913, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
       propertyPath: m_Name
       value: Level Select Button (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Test Scene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
@@ -1495,6 +1535,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Select Button (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: LevelSelector, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Test Scene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
 --- !u!224 &1265751238 stripped
@@ -1603,6 +1667,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Select Button (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Test Scene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
 --- !u!224 &1341644235 stripped
@@ -1708,6 +1780,14 @@ PrefabInstance:
     - target: {fileID: 4896123861799118913, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
       propertyPath: m_Name
       value: Level Select Button (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896123861799118943, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb8225f72fe564406819cae639bb9e60, type: 3}
