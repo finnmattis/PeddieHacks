@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Sprites/Jungle Background.jpg.meta
-guid: f5e85fb43e4c748ae8d595f5ac1b7485
-========
-guid: a64819fcd1ef0406e8c2abca7bc27f87
->>>>>>>> assets2:Assets/Sprites/Falcon/human-Sheet.png.meta
+guid: 7a1205174e57544ef8fff2b3de6fa1c3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,8 +45,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.31, y: 0.06}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -124,7 +120,7 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []

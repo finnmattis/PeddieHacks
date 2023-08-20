@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/// <summary>
-/// Put this on the player.
-/// </summary>
 public class PlayerTrashPickup : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI trashDisplay;
     private int trashCount = 0;
+
+    private void OnEnable() {
+        GameManager.OnRespawn += ResetTrash;
+    }
+
+    private void OnDisable() {
+        GameManager.OnRespawn -= ResetTrash;
+    }
+
+    private void ResetTrash(Vector3 _) {
+        trashCount = 0;
+    }
+
     void Start()
     {
         trashDisplay.text = "Trash Collected: " + trashCount;
     }
 
 
-    void Update()
+    private void Update()
     {
 
     }
