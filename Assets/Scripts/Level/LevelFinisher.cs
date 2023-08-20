@@ -3,8 +3,8 @@ using TMPro;
 
 public class LevelFinisher : MonoBehaviour
 {
-    [SerializeField] private GameObject _energyBar;
-    [SerializeField] private GameObject _trashCounter;
+    [SerializeField] private CanvasGroup _energyBar;
+    [SerializeField] private CanvasGroup _trashCounter;
     [SerializeField] private GameObject _endScreen;
     [SerializeField] private GameObject _player;
     public bool LevelEnd = false;
@@ -24,8 +24,8 @@ public class LevelFinisher : MonoBehaviour
         if (trashScript.TrashCount == 0) tmpText.text = "Level finished with no trash collected!";
         else if (trashScript.TrashCount == 1) tmpText.text = "Level finished with " + trashScript.TrashCount + " piece of trash collected!";
         else tmpText.text = "Level finished with " + trashScript.TrashCount + " pieces of trash collected!";
-        // _energyBar.SetActive(false);
-        // _trashCounter.SetActive(false);
+        _energyBar.alpha = 0;
+        _trashCounter.alpha = 0;
         _endScreen.SetActive(true);
 
         _endScreen.transform.SetSiblingIndex(_endScreen.transform.parent.childCount - 1);
